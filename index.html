@@ -3,11 +3,266 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DinVibe</title>
+  <title>DinVibe – Dejting som känns rätt</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #292329;
+      background: #fffafa;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 7%;
+      background: white;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #e94d67;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #292329;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login {
+      border: 2px solid #e94d67;
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: #e94d67;
+    }
+
+    .hero {
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px;
+      background:
+        radial-gradient(circle at 20% 20%, #ffd9df 0, transparent 32%),
+        radial-gradient(circle at 80% 70%, #f7d9e7 0, transparent 30%),
+        linear-gradient(135deg, #fff8f9, #fdf2f5);
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 7vw, 80px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #e94d67;
+    }
+
+    .hero p {
+      font-size: 21px;
+      line-height: 1.6;
+      color: #655b62;
+      margin: 0 auto 35px;
+      max-width: 620px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      background: #e94d67;
+      color: white;
+      text-decoration: none;
+      padding: 17px 34px;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 10px 25px rgba(233, 77, 103, 0.25);
+    }
+
+    .small-text {
+      margin-top: 18px;
+      font-size: 14px !important;
+    }
+
+    .features {
+      padding: 90px 7%;
+      text-align: center;
+      background: white;
+    }
+
+    .features h2 {
+      font-size: 38px;
+      margin-bottom: 50px;
+    }
+
+    .cards {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      padding: 40px 28px;
+      border-radius: 24px;
+      background: #fff7f8;
+    }
+
+    .card .icon {
+      font-size: 38px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #6c6268;
+      line-height: 1.6;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 90px 20px;
+      background: #292329;
+      color: white;
+    }
+
+    .cta h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      margin-bottom: 30px;
+      color: #ddd4d8;
+      font-size: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      color: #777;
+      background: white;
+      font-size: 14px;
+    }
+
+    @media (max-width: 750px) {
+      header {
+        padding: 18px 5%;
+      }
+
+      nav a:not(.login) {
+        display: none;
+      }
+
+      .logo {
+        font-size: 26px;
+      }
+
+      .hero {
+        min-height: 560px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        padding: 65px 6%;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>DinVibe ❤️</h1>
-  <p>En modern svensk dejtingsida för personer från 18 år och uppåt.</p>
+
+  <header>
+    <div class="logo">Din<span>Vibe</span> ❤️</div>
+
+    <nav>
+      <a href="#how">Så fungerar det</a>
+      <a href="#about">Om DinVibe</a>
+      <a href="#" class="login">Logga in</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Hitta någon på <span>din vibe.</span></h1>
+
+        <p>
+          Dejting ska kännas spännande, enkelt och äkta.
+          DinVibe är platsen för dig som vill hitta någon
+          du faktiskt klickar med.
+        </p>
+
+        <a href="#" class="primary-button">Skapa konto gratis ❤️</a>
+
+        <p class="small-text">För personer 18 år och uppåt.</p>
+      </div>
+    </section>
+
+    <section class="features" id="how">
+      <h2>Mer känsla. Mindre krångel.</h2>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">✨</div>
+          <h3>Skapa din profil</h3>
+          <p>Visa vem du är, vad du gillar och vilken vibe du söker.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">💞</div>
+          <h3>Hitta rätt personer</h3>
+          <p>Upptäck människor som passar dig, dina intressen och din energi.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">💬</div>
+          <h3>Börja prata</h3>
+          <p>När det känns rätt börjar samtalet. Resten bestämmer ni.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="about">
+      <h2>Redo att hitta din vibe?</h2>
+      <p>Det kostar inget att skapa din profil.</p>
+      <a href="#" class="primary-button">Gå med i DinVibe</a>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 DinVibe · För personer 18+ · Integritet · Villkor
+  </footer>
+
 </body>
 </html>
