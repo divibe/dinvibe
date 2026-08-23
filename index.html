@@ -3,512 +3,656 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DinVibe – Dejting som känns rätt</title>
+  <title>DinVibe – Hitta någon som känns rätt</title>
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     :root {
-      --rose: #e65472;
-      --rose-dark: #d84465;
-      --cream: #fff8f5;
-      --soft: #f8e9eb;
-      --ink: #261f25;
-      --muted: #746970;
-      --dark: #1f1820;
+      --pink: #ef4f73;
+      --pink-soft: #f8dfe3;
+      --cream: #fbf3ee;
+      --cream2: #fffaf7;
+      --dark: #18131d;
+      --purple: #211624;
+      --text: #32272d;
+      --muted: #756a70;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #fff;
-      color: var(--ink);
+      background: #f4f1ef;
+      color: var(--text);
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 6%;
-      background: rgba(255,255,255,.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid #f0e7e9;
+    .page {
+      width: min(1180px, 94%);
+      margin: 26px auto;
+      background: white;
+      overflow: hidden;
+      box-shadow: 0 15px 55px rgba(32,20,28,.12);
     }
 
-    .logo {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: var(--rose);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .login {
-      border: 1.5px solid var(--rose);
-      color: var(--rose);
-      padding: 10px 18px;
-      border-radius: 30px;
-    }
+    /* HERO */
 
     .hero {
-      min-height: 700px;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 50px;
-      padding: 70px 6%;
+      position: relative;
+      min-height: 635px;
+      color: white;
+      overflow: hidden;
+
       background:
-        radial-gradient(circle at 15% 20%, rgba(255,198,211,.55), transparent 35%),
-        radial-gradient(circle at 85% 80%, rgba(227,193,220,.40), transparent 35%),
-        linear-gradient(135deg, #fff8f5, #f9eef3);
+        radial-gradient(circle at 72% 38%, rgba(255,178,129,.45), transparent 28%),
+        radial-gradient(circle at 84% 14%, rgba(175,104,116,.35), transparent 35%),
+        linear-gradient(125deg, #15131a 0%, #34212b 43%, #7a4b48 70%, #1c1b25 100%);
     }
 
-    .hero-copy {
-      max-width: 650px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(10,8,14,.82) 0%, rgba(10,8,14,.45) 40%, rgba(10,8,14,.05) 70%),
+        linear-gradient(0deg, rgba(9,7,12,.38), transparent 38%);
+      pointer-events: none;
     }
 
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 18px;
-      color: var(--rose);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 1.8px;
+    .nav {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 42px;
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+    }
+
+    .brand-main {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .brand-main span {
+      color: var(--pink);
+    }
+
+    .brand-main i {
+      font-style: normal;
+      color: var(--pink);
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 6px;
+      font-size: 9px;
+      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
-    .hero h1 {
-      font-size: clamp(52px, 6vw, 88px);
-      line-height: .98;
-      letter-spacing: -4px;
-      margin-bottom: 26px;
-    }
-
-    .hero h1 span {
-      color: var(--rose);
-    }
-
-    .hero p {
-      font-size: 20px;
-      line-height: 1.65;
-      color: var(--muted);
-      max-width: 610px;
-      margin-bottom: 34px;
-    }
-
-    .hero-actions {
+    .menu {
       display: flex;
       align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      gap: 26px;
     }
 
-    .primary-button,
-    .secondary-button {
-      display: inline-block;
+    .menu a {
+      color: rgba(255,255,255,.88);
       text-decoration: none;
-      padding: 15px 26px;
-      border-radius: 32px;
+      text-transform: uppercase;
+      font-size: 11px;
       font-weight: 700;
     }
 
-    .primary-button {
-      background: var(--rose);
-      color: #fff;
-      box-shadow: 0 12px 28px rgba(230,84,114,.24);
-    }
-
-    .secondary-button {
-      border: 1px solid #d9cfd3;
-      color: var(--ink);
-      background: rgba(255,255,255,.65);
-    }
-
-    .trust {
-      margin-top: 18px;
-      color: #8c8087;
-      font-size: 13px;
-    }
-
-    .hero-cards {
-      position: relative;
-      min-height: 520px;
-    }
-
-    .profile-card {
-      position: absolute;
-      width: 250px;
-      border-radius: 28px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 24px 70px rgba(74,43,58,.16);
-      border: 1px solid rgba(255,255,255,.8);
-    }
-
-    .profile-card.one {
-      top: 15px;
-      left: 20px;
-      transform: rotate(-5deg);
-    }
-
-    .profile-card.two {
-      top: 110px;
-      right: 10px;
-      transform: rotate(6deg);
-    }
-
-    .profile-card.three {
-      bottom: 5px;
-      left: 130px;
-      transform: rotate(-1deg);
-    }
-
-    .photo {
-      height: 260px;
-      display: flex;
-      align-items: flex-end;
-      padding: 18px;
-      color: white;
+    .menu .active {
+      color: var(--pink);
       position: relative;
     }
 
-    .photo::after {
+    .menu .active::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.45), transparent 50%);
+      height: 2px;
+      width: 24px;
+      background: var(--pink);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .photo-content {
+    .login-btn {
+      border: 1px solid rgba(255,255,255,.65);
+      padding: 10px 18px;
+      border-radius: 25px;
+    }
+
+    .signup-btn {
+      background: var(--pink);
+      padding: 11px 18px;
+      border-radius: 25px;
+      color: white !important;
+    }
+
+    .hero-inner {
       position: relative;
-      z-index: 2;
+      z-index: 4;
+      padding: 65px 44px 125px;
+      max-width: 560px;
     }
 
-    .one .photo {
-      background: linear-gradient(135deg, #c98c84, #5f4442);
-    }
-
-    .two .photo {
-      background: linear-gradient(135deg, #54606f, #1f2731);
-    }
-
-    .three .photo {
-      background: linear-gradient(135deg, #c4a083, #745a48);
-    }
-
-    .photo h3 {
-      font-size: 26px;
-      margin-bottom: 3px;
-    }
-
-    .photo p {
-      font-size: 14px;
-      color: rgba(255,255,255,.85);
-      margin: 0;
-    }
-
-    .card-info {
-      padding: 16px 18px 18px;
-    }
-
-    .tags {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      background: var(--soft);
-      color: #705861;
-      padding: 7px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
-
-    .section {
-      padding: 90px 6%;
-    }
-
-    .section-title {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 48px;
-    }
-
-    .section-title h2 {
-      font-size: 42px;
-      margin-bottom: 14px;
-      letter-spacing: -1.5px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .step {
-      background: #fff8f7;
-      border: 1px solid #f2e4e7;
-      border-radius: 24px;
-      padding: 28px 24px;
-    }
-
-    .step-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--rose);
-      color: white;
-      display: grid;
-      place-items: center;
+    .eyebrow {
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      font-size: 13px;
       font-weight: 800;
       margin-bottom: 18px;
     }
 
-    .step h3 {
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(48px, 6vw, 74px);
+      font-weight: 400;
+      line-height: .98;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--pink);
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 410px;
+      color: rgba(255,255,255,.88);
+      margin-bottom: 28px;
+    }
+
+    .main-btn {
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 28px;
+      text-decoration: none;
+      color: white;
+      background: var(--pink);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      box-shadow: 0 9px 22px rgba(239,79,115,.28);
+    }
+
+    .safe-line {
+      margin-top: 18px;
+      font-size: 12px;
+      color: rgba(255,255,255,.8);
+    }
+
+    .couple-hero {
+      position: absolute;
+      z-index: 2;
+      right: 3%;
+      bottom: 0;
+      width: 54%;
+      height: 87%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .couple-placeholder {
+      width: 74%;
+      height: 82%;
+      border-radius: 45% 45% 5% 5%;
+      background:
+        radial-gradient(circle at 48% 35%, #e7aa84 0 12%, transparent 13%),
+        radial-gradient(circle at 62% 34%, #bc7f64 0 12%, transparent 13%),
+        radial-gradient(circle at 50% 52%, #5b302e 0 24%, transparent 25%),
+        linear-gradient(135deg, #a26559, #2d2229 62%);
+      opacity: .9;
+      filter: saturate(.85);
+    }
+
+    /* TRUST BOX */
+
+    .trust-box {
+      position: relative;
+      z-index: 8;
+      width: calc(100% - 90px);
+      margin: -72px auto 0;
+      background: rgba(255,250,248,.96);
+      border: 1px solid rgba(112,81,89,.13);
+      box-shadow: 0 12px 30px rgba(55,33,44,.12);
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 28px 22px;
+    }
+
+    .trust-item {
+      display: flex;
+      gap: 15px;
+      padding: 0 20px;
+      border-right: 1px solid #e8dcdd;
+    }
+
+    .trust-item:last-child {
+      border-right: none;
+    }
+
+    .trust-icon {
+      font-size: 31px;
+      color: var(--pink);
+      line-height: 1;
+    }
+
+    .trust-item h3 {
+      font-size: 11px;
+      text-transform: uppercase;
       margin-bottom: 8px;
-      font-size: 19px;
+    }
+
+    .trust-item p {
+      font-size: 10px;
+      line-height: 1.65;
+      color: #665a60;
+    }
+
+    /* MIDDLE */
+
+    .middle {
+      padding: 70px 50px 48px;
+      background:
+        radial-gradient(circle at 48% 48%, rgba(255,255,255,.95), transparent 30%),
+        linear-gradient(180deg, #fbf3ee, #fffaf7);
+    }
+
+    .middle-grid {
+      display: grid;
+      grid-template-columns: 1.4fr .75fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .small-title {
+      text-align: center;
+      color: var(--pink);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      font-size: 11px;
+      margin-bottom: 9px;
+    }
+
+    .steps-title {
+      font-family: Georgia, serif;
+      text-align: center;
+      font-weight: 400;
+      font-size: 31px;
+      margin-bottom: 36px;
+    }
+
+    .steps {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: "• • • •";
+      position: absolute;
+      top: 29px;
+      right: -28px;
+      color: var(--pink);
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+
+    .step-circle {
+      width: 58px;
+      height: 58px;
+      margin: auto auto 17px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #f6dfe0;
+      color: #2f2930;
+      font-size: 28px;
+    }
+
+    .step h4 {
+      font-size: 10px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .step h4 span {
+      color: var(--pink);
     }
 
     .step p {
-      color: var(--muted);
+      font-size: 9px;
       line-height: 1.55;
-      font-size: 14px;
+      color: #655a60;
     }
 
-    .discover {
-      background: #fbf7f8;
+    .rating {
+      border-left: 1px solid #d8cbcc;
+      padding-left: 43px;
     }
 
-    .discover-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .discover-card {
-      min-height: 330px;
-      border-radius: 28px;
-      padding: 26px;
-      color: white;
+    .quote-title {
       display: flex;
-      align-items: flex-end;
-      position: relative;
+      gap: 13px;
+      align-items: flex-start;
+      font-family: Georgia, serif;
+      font-size: 23px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .quote-mark {
+      color: var(--pink);
+      font-size: 50px;
+      line-height: .75;
+      font-family: Georgia, serif;
+    }
+
+    .stars {
+      color: var(--pink);
+      letter-spacing: 3px;
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .rating-text {
+      font-size: 11px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .round-pics {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .round-pic {
+      width: 108px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 8px 18px rgba(48,32,38,.15);
       overflow: hidden;
     }
 
-    .discover-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.55), transparent 55%);
-    }
-
-    .discover-card:nth-child(1) {
-      background: linear-gradient(135deg, #bd8c7b, #65453f);
-    }
-
-    .discover-card:nth-child(2) {
-      background: linear-gradient(135deg, #6b7684, #25313a);
-    }
-
-    .discover-card:nth-child(3) {
-      background: linear-gradient(135deg, #b18e73, #5d4939);
-    }
-
-    .discover-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .discover-content h3 {
-      font-size: 30px;
-      margin-bottom: 6px;
-    }
-
-    .discover-content p {
-      color: rgba(255,255,255,.85);
-    }
-
-    .quote {
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
-      padding: 80px 6%;
-    }
-
-    .quote blockquote {
-      font-family: Georgia, serif;
-      font-size: 38px;
-      line-height: 1.35;
-      color: #3f3139;
-    }
-
-    .quote span {
-      display: block;
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .cta {
-      margin: 0 6% 70px;
-      padding: 70px 30px;
-      border-radius: 32px;
+    .round-pic.one {
       background:
-        linear-gradient(135deg, rgba(230,84,114,.93), rgba(117,55,88,.96));
+        radial-gradient(circle at 38% 34%, #d9a083 0 13%, transparent 14%),
+        radial-gradient(circle at 62% 35%, #936454 0 13%, transparent 14%),
+        linear-gradient(135deg, #3a5250, #c47f62);
+    }
+
+    .round-pic.two {
+      background:
+        radial-gradient(circle at 37% 33%, #e2ab89 0 13%, transparent 14%),
+        radial-gradient(circle at 64% 34%, #9b695b 0 13%, transparent 14%),
+        linear-gradient(135deg, #b6806b, #3d3133);
+    }
+
+    /* DARK BOTTOM */
+
+    .bottom {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(93,47,73,.35), transparent 30%),
+        linear-gradient(125deg, #281522, #13131c 65%, #201724);
       color: white;
+      padding: 38px 48px 25px;
+    }
+
+    .bottom-top {
+      display: grid;
+      grid-template-columns: .85fr 1.25fr 1.2fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .bottom-label {
+      color: var(--pink);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      margin-bottom: 14px;
+    }
+
+    .bottom-rating h3 {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 9px;
+    }
+
+    .review {
+      display: flex;
+      gap: 13px;
+    }
+
+    .review p {
+      font-size: 12px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.82);
+    }
+
+    .review-name {
+      display: block;
+      color: var(--pink);
+      margin-top: 9px;
+      font-size: 11px;
+    }
+
+    .story-btn {
+      border: 1px solid var(--pink);
+      color: white;
+      padding: 14px 21px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 11px;
+      border-radius: 25px;
       text-align: center;
     }
 
-    .cta h2 {
-      font-size: 44px;
-      margin-bottom: 12px;
+    .bottom-footer {
+      margin-top: 33px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,.09);
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      gap: 30px;
+      align-items: end;
     }
 
-    .cta p {
-      margin-bottom: 26px;
-      color: rgba(255,255,255,.85);
-      font-size: 18px;
+    .footer-logo {
+      font-family: Georgia, serif;
+      font-size: 28px;
     }
 
-    .cta .primary-button {
-      background: white;
-      color: var(--rose-dark);
-      box-shadow: none;
+    .footer-logo span {
+      color: var(--pink);
     }
 
-    footer {
-      padding: 30px 6%;
-      color: #877d82;
+    .copyright {
+      margin-top: 7px;
+      font-size: 9px;
+      color: rgba(255,255,255,.55);
+    }
+
+    .footer-links {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
+      justify-content: center;
+      gap: 28px;
       flex-wrap: wrap;
-      font-size: 14px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,.7);
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social a {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.25);
+      display: grid;
+      place-items: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
     }
 
     @media (max-width: 900px) {
-      .hero {
+      .menu a:not(.login-btn):not(.signup-btn) {
+        display: none;
+      }
+
+      .couple-hero {
+        opacity: .48;
+        width: 65%;
+        right: -10%;
+      }
+
+      .hero-inner {
+        max-width: 650px;
+      }
+
+      .trust-box {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .trust-item {
+        border-right: none;
+        margin: 12px 0;
+      }
+
+      .middle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rating {
+        border-left: none;
+        border-top: 1px solid #d8cbcc;
+        padding-left: 0;
+        padding-top: 35px;
+        text-align: center;
+      }
+
+      .round-pics {
+        justify-content: center;
+      }
+
+      .bottom-top {
         grid-template-columns: 1fr;
         text-align: center;
       }
 
-      .hero-copy {
-        margin: auto;
-      }
-
-      .hero p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-actions {
+      .review {
         justify-content: center;
       }
 
-      .hero-cards {
-        min-height: 500px;
-        max-width: 600px;
-        width: 100%;
-        margin: auto;
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .discover-grid {
+      .bottom-footer {
         grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-links,
+      .social {
+        justify-content: center;
       }
     }
 
-    @media (max-width: 650px) {
-      nav a:not(.login) {
+    @media (max-width: 620px) {
+      .page {
+        width: 100%;
+        margin: 0;
+      }
+
+      .nav {
+        padding: 18px;
+      }
+
+      .signup-btn {
         display: none;
       }
 
       .hero {
-        padding: 55px 5%;
+        min-height: 590px;
+      }
+
+      .hero-inner {
+        padding: 72px 23px 115px;
       }
 
       .hero h1 {
-        font-size: 54px;
+        font-size: 48px;
       }
 
-      .hero-cards {
-        min-height: 720px;
+      .couple-hero {
+        width: 90%;
+        right: -38%;
       }
 
-      .profile-card {
-        width: 225px;
+      .trust-box {
+        width: calc(100% - 28px);
+        grid-template-columns: 1fr;
+        padding: 18px;
       }
 
-      .profile-card.one {
-        left: 0;
+      .trust-item {
+        padding: 12px;
       }
 
-      .profile-card.two {
-        right: 0;
-        top: 185px;
-      }
-
-      .profile-card.three {
-        left: 35px;
-        bottom: 0;
+      .middle {
+        padding: 55px 24px 40px;
       }
 
       .steps {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 35px;
       }
 
-      .section {
-        padding: 65px 5%;
+      .step::after {
+        display: none !important;
       }
 
-      .section-title h2,
-      .cta h2 {
-        font-size: 34px;
-      }
-
-      .quote blockquote {
-        font-size: 29px;
-      }
-
-      footer {
-        padding: 25px 5%;
+      .bottom {
+        padding: 36px 24px 22px;
       }
     }
   </style>
@@ -516,183 +660,248 @@
 
 <body>
 
-<header>
-  <div class="logo">Din<span>Vibe</span>♡</div>
+<div class="page">
 
-  <nav>
-    <a href="#how">Så funkar det</a>
-    <a href="#discover">Upptäck</a>
-    <a href="#about">Om DinVibe</a>
-    <a href="#" class="login">Logga in</a>
-  </nav>
-</header>
+  <section class="hero" id="home">
 
-<main>
+    <nav class="nav">
+      <a href="#home" class="brand">
+        <span class="brand-main">Din<span>Vibe</span><i>♡</i></span>
+        <span class="brand-sub">Hitta någon som känns rätt.</span>
+      </a>
 
-  <section class="hero">
-    <div class="hero-copy">
-      <span class="eyebrow">Inga spel. Inga ytligheter.</span>
+      <div class="menu">
+        <a href="#home" class="active">Hem</a>
+        <a href="#how">Så funkar det</a>
+        <a href="#about">Om DinVibe</a>
+        <a href="#">Blogg</a>
+        <a href="#">Kontakt</a>
+        <a href="#" class="login-btn">Logga in</a>
+        <a href="#" class="signup-btn">Skapa profil</a>
+      </div>
+    </nav>
+
+    <div class="hero-inner">
+      <div class="eyebrow">Inga spel. Inga ytligheter.</div>
 
       <h1>
-        Hitta någon som
-        <span>känns rätt.</span>
+        Hitta någon<br>
+        som känns<br>
+        <span>rätt.</span>
       </h1>
 
-      <p>
-        DinVibe är dejting för riktiga människor.
-        Hitta någon som matchar din energi, dina värderingar
-        och det liv du faktiskt vill leva.
+      <p class="hero-copy">
+        DinVibe är för dig som vill ha något äkta.<br>
+        Bara riktiga människor och äkta känslor.
       </p>
 
-      <div class="hero-actions">
-        <a href="#" class="primary-button">Skapa din profil</a>
-        <a href="#" class="secondary-button">Jag har redan konto</a>
-      </div>
+      <a href="#" class="main-btn">Skapa din profil →</a>
 
-      <div class="trust">
-        🔒 Tryggt · 18+ · Din profil, dina val
-      </div>
+      <div class="safe-line">🔒 Tryggt, säkert och seriöst</div>
     </div>
 
-    <div class="hero-cards">
-      <div class="profile-card one">
-        <div class="photo">
-          <div class="photo-content">
-            <h3>Elin, 38</h3>
-            <p>Stockholm</p>
-          </div>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag">Resor</span>
-            <span class="tag">Mat</span>
-            <span class="tag">Hav</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="profile-card two">
-        <div class="photo">
-          <div class="photo-content">
-            <h3>Johan, 44</h3>
-            <p>Göteborg</p>
-          </div>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag">Träning</span>
-            <span class="tag">Musik</span>
-            <span class="tag">Weekend</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="profile-card three">
-        <div class="photo">
-          <div class="photo-content">
-            <h3>Sofia, 51</h3>
-            <p>Malmö</p>
-          </div>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag">Vin</span>
-            <span class="tag">Konst</span>
-            <span class="tag">Natur</span>
-          </div>
-        </div>
-      </div>
+    <div class="couple-hero">
+      <div class="couple-placeholder"></div>
     </div>
+
   </section>
 
-  <section class="section" id="how">
-    <div class="section-title">
-      <h2>Fyra enkla steg till något äkta</h2>
-      <p>
-        Ingen komplicerad process. Du skapar din profil,
-        hittar personer du gillar och låter kemin göra resten.
-      </p>
-    </div>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Skapa din profil</h3>
-        <p>Berätta vem du är och vad du söker.</p>
-      </div>
+  <section class="trust-box">
 
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Få matchningar</h3>
-        <p>Upptäck människor som passar din vibe.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Gilla någon</h3>
-        <p>Visa intresse när någon känns rätt.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Börja prata</h3>
-        <p>När ni matchar öppnas chatten.</p>
+    <div class="trust-item">
+      <div class="trust-icon">♢</div>
+      <div>
+        <h3>Tryggt & säkert</h3>
+        <p>
+          Vi verifierar alla profiler för din trygghet.
+          Du bestämmer vad som känns rätt för dig.
+        </p>
       </div>
     </div>
+
+    <div class="trust-item">
+      <div class="trust-icon">♡</div>
+      <div>
+        <h3>Meningsfulla matcher</h3>
+        <p>
+          Vårt matchningssystem hittar personer som verkligen
+          passar din personlighet och dina värderingar.
+        </p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <div class="trust-icon">♙</div>
+      <div>
+        <h3>Ditt privatliv</h3>
+        <p>
+          Du väljer själv vad du delar.
+          Vi skyddar dina uppgifter och respekterar din integritet.
+        </p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <div class="trust-icon">◌</div>
+      <div>
+        <h3>Äkta kontakter</h3>
+        <p>
+          Inga falska profiler. Inga bots.
+          Bara äkta människor.
+        </p>
+      </div>
+    </div>
+
   </section>
 
-  <section class="section discover" id="discover">
-    <div class="section-title">
-      <h2>Upptäck personer nära dig</h2>
-      <p>
-        Exempelprofiler tills riktiga DinVibe-medlemmar börjar fylla sidan.
-      </p>
-    </div>
 
-    <div class="discover-grid">
-      <div class="discover-card">
-        <div class="discover-content">
-          <h3>Emma, 36</h3>
-          <p>Stockholm · Söker seriöst</p>
+  <section class="middle" id="how">
+
+    <div class="middle-grid">
+
+      <div>
+        <div class="small-title">Så funkar det</div>
+        <h2 class="steps-title">Fyra enkla steg till något äkta</h2>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-circle">♙</div>
+            <h4><span>1.</span> Skapa din profil</h4>
+            <p>
+              Berätta om dig själv och vad du söker.
+              Det tar bara några minuter.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-circle">☷</div>
+            <h4><span>2.</span> Få matcher</h4>
+            <p>
+              Vi hittar personer som matchar din vibe
+              och dina preferenser.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-circle">♡</div>
+            <h4><span>3.</span> Börja gilla</h4>
+            <p>
+              Gilla de profiler som fångar ditt intresse.
+              Om intresset är ömsesidigt blir det en match.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-circle">☵</div>
+            <h4><span>4.</span> Chatta & lär känna</h4>
+            <p>
+              Lär känna varandra i chatten och se vart
+              din vibe kan leda.
+            </p>
+          </div>
+
         </div>
       </div>
 
-      <div class="discover-card">
-        <div class="discover-content">
-          <h3>Alexander, 42</h3>
-          <p>Stockholm · Aktiv & social</p>
-        </div>
-      </div>
 
-      <div class="discover-card">
-        <div class="discover-content">
-          <h3>Anna, 55</h3>
-          <p>Uppsala · Livsnjutare</p>
+      <aside class="rating">
+
+        <div class="quote-title">
+          <span class="quote-mark">“</span>
+          <span>Tusentals har redan<br>hittat sin vibe.</span>
         </div>
-      </div>
+
+        <div class="stars">★★★★★</div>
+
+        <div class="rating-text">
+          <strong>4,8 av 5</strong> i betyg från<br>
+          våra medlemmar
+        </div>
+
+        <div class="round-pics">
+          <div class="round-pic one"></div>
+          <div class="round-pic two"></div>
+        </div>
+
+      </aside>
+
     </div>
+
   </section>
 
-  <section class="quote" id="about">
-    <blockquote>
-      “Det handlar inte om att hitta flest.
-      Det handlar om att hitta rätt.”
-    </blockquote>
-    <span>DinVibe</span>
+
+  <section class="bottom" id="about">
+
+    <div class="bottom-top">
+
+      <div class="bottom-rating">
+        <div class="bottom-label">Äkta människor. Äkta känslor.</div>
+
+        <h3>
+          “Tusentals har redan<br>
+          hittat sin vibe.”
+        </h3>
+
+        <div class="stars">★★★★★</div>
+
+        <div class="rating-text">
+          4,8 av 5 i betyg från våra medlemmar
+        </div>
+      </div>
+
+
+      <div class="review">
+        <span class="quote-mark">“</span>
+
+        <p>
+          Jag hade nästan gett upp på kärleken.
+          Men på DinVibe träffade jag någon som verkligen
+          förstår mig. Vi klickade direkt.
+
+          <span class="review-name">– Anna & Johan, Stockholm</span>
+        </p>
+      </div>
+
+
+      <a href="#" class="story-btn">
+        Läs fler medlemsberättelser →
+      </a>
+
+    </div>
+
+
+    <div class="bottom-footer">
+
+      <div>
+        <div class="footer-logo">Din<span>Vibe</span>♡</div>
+        <div class="copyright">
+          © 2026 DinVibe. Alla rättigheter förbehållna.
+        </div>
+      </div>
+
+
+      <div class="footer-links">
+        <a href="#">Villkor</a>
+        <a href="#">Integritet</a>
+        <a href="#">Säkerhet</a>
+        <a href="#">Hjälp</a>
+        <a href="#">Kontakt</a>
+      </div>
+
+
+      <div class="social">
+        <a href="#">◎</a>
+        <a href="#">f</a>
+        <a href="#">♪</a>
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="cta">
-    <h2>Redo att hitta din vibe?</h2>
-    <p>Skapa din profil gratis och se vem som finns där ute.</p>
-    <a href="#" class="primary-button">Skapa konto gratis</a>
-  </section>
-
-</main>
-
-<footer>
-  <div>© 2026 DinVibe</div>
-  <div>18+ · Integritet · Villkor · Säkerhet · Kontakt</div>
-</footer>
+</div>
 
 </body>
 </html>
